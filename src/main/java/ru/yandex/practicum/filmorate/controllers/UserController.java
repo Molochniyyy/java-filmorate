@@ -19,29 +19,28 @@ public class UserController {
     private final Map<Integer, User> users = new HashMap<>();
 
     @GetMapping
-    public Collection<User> getUsers() {
+    public Collection<User> get() {
         log.info("Текущее количество пользователей: {}", users.values().size());
         return users.values();
     }
 
     @PostMapping
-    public User addUser(@RequestBody User user) {
-        checkUser(user);
+    public User add(@RequestBody User user) {
+        check(user);
         if (user.getName() == null) {
             user.setName(user.getLogin());
         }
         if (user.getId() <= 0) {
             user.setId(++nextId);
-            users.put(user.getId(), user);
-        } else {
-            users.put(user.getId(), user);
         }
+        users.put(user.getId(), user);
+        log.info("Пользователь с id = {} добавлен",user.getId());
         return user;
     }
 
     @PutMapping
-    public User updateUser(@RequestBody User user) {
-        checkUser(user);
+    public User update(@RequestBody User user) {
+        check(user);
         if (user.getName() == null || user.getName().length() == 0) {
             log.info("Пользователю с пустым именем был присвоен его логин {}",user.getLogin());
             user.setName(user.getLogin());
@@ -53,7 +52,7 @@ public class UserController {
         return user;
     }
 
-    private void checkUser(User user) {
+    private void check(User user) {
         if (user.getEmail() == null || !user.getEmail().contains("@")) {
             throw new ValidationException("Адрес электронной почты не должен быть равен null");
         }

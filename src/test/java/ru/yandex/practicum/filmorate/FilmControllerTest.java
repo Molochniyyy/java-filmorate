@@ -30,45 +30,43 @@ public class FilmControllerTest {
     @Test
     public void shouldThrowValidationException_whenGetUnknownId() {
         Film film = getFilm();
-        fc.addFilm(film);
+        fc.add(film);
         Film updatedFilm = getFilm();
         updatedFilm.setId(0);
-        assertThrows(ValidationException.class, () -> fc.updateFilm(updatedFilm));
+        assertThrows(ValidationException.class, () -> fc.update(updatedFilm));
     }
 
     @Test
     public void shouldThrowValidationException_whenNameIsEmpty(){
         Film film = getFilm();
-        fc.addFilm(film);
+        fc.add(film);
         film.setName("");
-        assertThrows(ValidationException.class, () -> fc.updateFilm(film));
+        assertThrows(ValidationException.class, () -> fc.update(film));
         film.setName(null);
-        assertThrows(NullPointerException.class, () -> fc.updateFilm(film));
+        assertThrows(NullPointerException.class, () -> fc.update(film));
     }
 
     @Test
     public void shouldThrowValidationException_whenLengthOfDescriptionIsMoreThan200(){
         Film film = getFilm();
-        fc.addFilm(film);
-        film.setDescription("111111111111111111111111111111111111111111111111111111111111111111111111111111111111111" +
-                "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111" +
-                "111111111111111");//201
-        assertThrows(ValidationException.class, () -> fc.updateFilm(film));
+        fc.add(film);
+        film.setDescription("1".repeat(201));
+        assertThrows(ValidationException.class, () -> fc.update(film));
     }
 
     @Test
     public void shouldThrowValidationException_whenReleaseDateIsBeforeThan28thOfDecember1895(){
         Film film = getFilm();
-        fc.addFilm(film);
+        fc.add(film);
         film.setReleaseDate(LocalDate.of(1895,12,27));
-        assertThrows(ValidationException.class, () -> fc.updateFilm(film));
+        assertThrows(ValidationException.class, () -> fc.update(film));
     }
 
     @Test
     public void shouldThrowValidationException_whenDurationIsNegative(){
         Film film = getFilm();
-        fc.addFilm(film);
+        fc.add(film);
         film.setDuration(-100);
-        assertThrows(ValidationException.class, () -> fc.updateFilm(film));
+        assertThrows(ValidationException.class, () -> fc.update(film));
     }
 }

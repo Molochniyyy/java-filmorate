@@ -17,34 +17,34 @@ public class FilmController {
     private final Map<Integer, Film> films = new HashMap<>();
 
     @GetMapping
-    public Collection<Film> getFilms() {
-        log.info("Количество фильмов на данный момент - {}",films.values().size());
+    public Collection<Film> get() {
+        log.info("Количество фильмов на данный момент - {}", films.values().size());
         return films.values();
     }
 
     @PostMapping
-    public Film addFilm(@RequestBody Film film) {
-        checkFilm(film);
+    public Film add(@RequestBody Film film) {
+        check(film);
         if (film.getId() <= 0) {
             film.setId(++nextId);
-            films.put(film.getId(), film);
-        } else {
-            films.put(film.getId(), film);
         }
+        films.put(film.getId(), film);
+        log.info("Фильм с id = {} добавлен",film.getId());
         return film;
     }
 
     @PutMapping
-    public Film updateFilm(@RequestBody Film film) {
-        checkFilm(film);
+    public Film update(@RequestBody Film film) {
+        check(film);
         if (!films.containsKey(film.getId())) {
             throw new ValidationException("Фильма с таким id не существует");
         }
         films.put(film.getId(), film);
+        log.info("Фильм {} обновлен",film.getName());
         return film;
     }
 
-    private void checkFilm(Film film) {
+    private void check(Film film) {
         if (film.getName().length() == 0 || film.getName() == null) {
             throw new ValidationException("Название не может быть пустым");
         }

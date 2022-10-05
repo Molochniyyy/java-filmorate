@@ -31,44 +31,44 @@ public class UserControllerTest {
     @Test
     public void shouldThrowValidationException_whenGetUnknownId() {
         User user = getUser();
-        uc.addUser(user);
+        uc.add(user);
         User updatedUser = getUser();
         updatedUser.setId(0);
-        assertThrows(ValidationException.class, () -> uc.updateUser(updatedUser));
+        assertThrows(ValidationException.class, () -> uc.update(updatedUser));
     }
 
     @Test
     public void shouldThrowValidationException_whenGetWrongEmail(){
         User user = getUser();
-        uc.addUser(user);
+        uc.add(user);
         user.setEmail("mail.mail");
-        assertThrows(ValidationException.class,()->uc.updateUser(user));
+        assertThrows(ValidationException.class,()->uc.update(user));
         user.setEmail(null);
-        assertThrows(ValidationException.class,()->uc.updateUser(user));
+        assertThrows(ValidationException.class,()->uc.update(user));
     }
 
     @Test
     public void shouldUseLoginAsName_ifNameIsEmpty(){
         User user = getUser();
-        uc.addUser(user);
+        uc.add(user);
         user.setName("");
-        assertEquals("test",uc.updateUser(user).getName());
+        assertEquals("test",uc.update(user).getName());
     }
 
     @Test void shouldThrowValidationException_whenBirthdayIsInTheFuture(){
         User user = getUser();
-        uc.addUser(user);
+        uc.add(user);
         user.setBirthday(LocalDate.of(2023,1,1));
-        assertThrows(ValidationException.class,()->uc.updateUser(user));
+        assertThrows(ValidationException.class,()->uc.update(user));
     }
 
     @Test
     public void shouldThrowValidationException_whenLoginIsEmptyOrContainsSpaces(){
         User user = getUser();
-        uc.addUser(user);
+        uc.add(user);
         user.setLogin("mamma mia");
-        assertThrows(ValidationException.class,()->uc.updateUser(user));
+        assertThrows(ValidationException.class,()->uc.update(user));
         user.setLogin(null);
-        assertThrows(ValidationException.class,()->uc.updateUser(user));
+        assertThrows(ValidationException.class,()->uc.update(user));
     }
 }
