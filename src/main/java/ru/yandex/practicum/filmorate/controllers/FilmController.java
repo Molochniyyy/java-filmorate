@@ -1,16 +1,14 @@
 package ru.yandex.practicum.filmorate.controllers;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.service.FilmService;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @RestController
-@Slf4j
 @RequestMapping("/films")
 @RequiredArgsConstructor
 public class FilmController {
@@ -48,7 +46,7 @@ public class FilmController {
     }
 
     @GetMapping("/popular")
-    public ArrayList<Film> getMostPopularFilms(@RequestParam(defaultValue = "10", name = "count") int count) {
+    public List<Film> getMostPopularFilms(@RequestParam(defaultValue = "10", name = "count") int count) {
         return service.getMostPopularFilms(count);
     }
 }
