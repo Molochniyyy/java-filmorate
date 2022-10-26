@@ -31,7 +31,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    public void shouldThrowValidationException_whenGetUnknownId() {
+    public void shouldThrowValidationException__whenGetUnknownId() {
         Film film = getFilm();
         fc.add(film);
         Film updatedFilm = getFilm();
