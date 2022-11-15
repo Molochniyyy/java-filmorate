@@ -2,4 +2,4 @@
 Template repository for Filmorate project.
 
 There is db schema:
-![alt text](db/db.jpg)
+![alt text](db/schema.jpg)

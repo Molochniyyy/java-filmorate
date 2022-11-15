@@ -1,7 +1,6 @@
 package ru.yandex.practicum.filmorate.storage;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.exceptions.NotFoundException;
 import ru.yandex.practicum.filmorate.exceptions.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
@@ -11,7 +10,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
+
 @Slf4j
 public class InMemoryFilmStorage implements FilmStorage{
 
@@ -55,7 +54,7 @@ public class InMemoryFilmStorage implements FilmStorage{
         return film;
     }
 
-    private void check(Film film) {
+    public void check(Film film) {
         if (film.getName().length() == 0 || film.getName() == null) {
             throw new ValidationException("Название не может быть пустым");
         }
