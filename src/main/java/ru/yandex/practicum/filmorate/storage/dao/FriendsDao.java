@@ -18,7 +18,7 @@ public class FriendsDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void addFriend(int userId, int friendId){
+    public void addFriend(long userId, long friendId){
         checkId(userId);
         checkId(friendId);
         String sqlQuery = "INSERT INTO FRIENDS (USER_ID, FRIEND_ID) values (?,?)";

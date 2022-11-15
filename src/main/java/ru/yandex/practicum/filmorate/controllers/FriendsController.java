@@ -15,7 +15,7 @@ public class FriendsController {
     private final FriendsService service;
 
     @PutMapping("/{friendId}")
-    public void add(@PathVariable int id, @PathVariable int friendId){
+    public void add(@PathVariable long id, @PathVariable long friendId){
         service.addFriend(id,friendId);
     }
 

@@ -19,7 +19,7 @@ public class FriendsService {
         this.friendsDao = friendsDao;
     }
 
-    public void addFriend(int userId, int friendId) {
+    public void addFriend(long userId, long friendId) {
         friendsDao.addFriend(userId, friendId);
         log.info("User с id = {} добавил в друзья User'a с id = {}", userId, friendId);
     }

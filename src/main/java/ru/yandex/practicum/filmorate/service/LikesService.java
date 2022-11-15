@@ -19,12 +19,12 @@ public class LikesService {
         this.likesDao = likesDao;
     }
 
-    public void addLike(int filmId, int userId) {
+    public void addLike(long filmId, long userId) {
         log.info("Лайк добавлен к фильму с id = {} от пользователя с id = {}", filmId, userId);
         likesDao.addLike(filmId, userId);
     }
 
-    public void removeLike(int filmId, int userId) {
+    public void removeLike(long filmId, long userId) {
         log.info("Лайк удален у фильма с id = {} от пользователя с id = {}", filmId, userId);
         likesDao.removeLike(filmId, userId);
     }

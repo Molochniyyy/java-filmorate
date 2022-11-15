@@ -13,12 +13,12 @@ public class LikesController {
     private final LikesService service;
 
     @PutMapping("/films/{id}/like/{userId}")
-    public void add(@PathVariable int id, @PathVariable int userId){
+    public void add(@PathVariable long id, @PathVariable long userId){
         service.addLike(id,userId);
     }
 
     @DeleteMapping("/films/{id}/like/{userId}")
-    public void delete(@PathVariable int id, @PathVariable int userId){
+    public void delete(@PathVariable long id, @PathVariable long userId){
         service.removeLike(id,userId);
     }
 

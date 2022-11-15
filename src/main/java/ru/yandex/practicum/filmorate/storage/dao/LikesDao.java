@@ -25,14 +25,14 @@ public class LikesDao {
         this.genreService = genreService;
     }
 
-    public void addLike(int filmId, int userId) {
+    public void addLike(long filmId, long userId) {
         checkUserId(userId);
         checkFilmId(filmId);
         String sqlQuery = "insert into LIKES (FILM_ID, USER_ID) VALUES (?,?)";
         jdbcTemplate.update(sqlQuery, filmId, userId);
     }
 
-    public void removeLike(int filmId, int userId) {
+    public void removeLike(long filmId, long userId) {
         checkFilmId(filmId);
         checkUserId(userId);
         String sqlQuery = "delete from LIKES where FILM_ID = ? and USER_ID = ?";
