@@ -1,7 +1,7 @@
 package ru.yandex.practicum.filmorate.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.storage.dao.LikesDao;
@@ -10,14 +10,10 @@ import java.util.List;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class LikesService {
 
     private final LikesDao likesDao;
-
-    @Autowired
-    public LikesService(LikesDao likesDao) {
-        this.likesDao = likesDao;
-    }
 
     public void addLike(long filmId, long userId) {
         log.info("Лайк добавлен к фильму с id = {} от пользователя с id = {}", filmId, userId);

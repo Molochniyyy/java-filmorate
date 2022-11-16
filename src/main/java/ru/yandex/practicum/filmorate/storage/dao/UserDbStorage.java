@@ -58,7 +58,7 @@ public class UserDbStorage implements UserStorage {
             return ps;
         }, holder);
         String sql = "SELECT * FROM USERS ORDER BY ID DESC LIMIT 1";
-        User user1 = jdbcTemplate.queryForObject(sql, this::mapRowToUser);
+        User user1 = jdbcTemplate.queryForObject(sql,this::mapRowToUser);
         assert user1 != null;
         return getUserById(user1.getId());
     }

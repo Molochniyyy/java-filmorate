@@ -29,11 +29,14 @@ public class FilmDbStorage implements FilmStorage {
     private final MpaService mpaService;
     private final GenreService genreService;
 
+    private final FilmGenreDao filmGenreDao;
+
     @Autowired
-    public FilmDbStorage(JdbcTemplate jdbcTemplate, MpaService mpaService, GenreService genreService) {
+    public FilmDbStorage(JdbcTemplate jdbcTemplate, MpaService mpaService, GenreService genreService, FilmGenreDao filmGenreDao) {
         this.jdbcTemplate = jdbcTemplate;
         this.mpaService = mpaService;
         this.genreService = genreService;
+        this.filmGenreDao = filmGenreDao;
     }
 
     @Override
@@ -63,19 +66,16 @@ public class FilmDbStorage implements FilmStorage {
             Set<Genre> genres= new LinkedHashSet<>(film.getGenres());
             film.getGenres().clear();
             film.getGenres().addAll(genres);
-            String sql2 = "delete from FILM_GENRE";
-            jdbcTemplate.update(sql2);
+            filmGenreDao.clear();
             for (Genre genre : film.getGenres()) {
-                String sql = "insert into FILM_GENRE(FILM_ID, GENRE_ID) values (?,?)";
-                jdbcTemplate.update(sql, film.getId(), genre.getId());
+                filmGenreDao.add(film.getId(),genre.getId());
             }
             if (film.getGenres().size() == 0) {
                 String sql1 = "select * from FILMS where ID = ?";
                 Film film1 = jdbcTemplate.queryForObject(sql1, this::mapRowToFilm, film.getId());
                 assert film1 != null;
                 film1.getGenres().clear();
-                String sql = "delete from FILM_GENRE";
-                jdbcTemplate.update(sql);
+                filmGenreDao.clear();
                 return film1;
             }
         }
@@ -103,8 +103,7 @@ public class FilmDbStorage implements FilmStorage {
         film.setId(id);
         if (film.getGenres() != null) {
             for (Genre genre : film.getGenres()) {
-                String sql = "insert into FILM_GENRE values (?,?)";
-                jdbcTemplate.update(sql, film.getId(), genre.getId());
+                filmGenreDao.add(film.getId(),genre.getId());
             }
         }
         String sql1 = "select * from FILMS order by ID desc limit 1";

@@ -1,7 +1,7 @@
 package ru.yandex.practicum.filmorate.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.dao.FriendsDao;
@@ -10,14 +10,10 @@ import java.util.List;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class FriendsService {
 
     private final FriendsDao friendsDao;
-
-    @Autowired
-    public FriendsService(FriendsDao friendsDao) {
-        this.friendsDao = friendsDao;
-    }
 
     public void addFriend(long userId, long friendId) {
         friendsDao.addFriend(userId, friendId);
